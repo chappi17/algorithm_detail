@@ -6,7 +6,7 @@
 */
 
 // 0 이 큰지 1이 큰지 판별
-// 
+// 아직 다 못푼거 -> 다시 풀 예정
 
 #include <string>
 #include <vector>

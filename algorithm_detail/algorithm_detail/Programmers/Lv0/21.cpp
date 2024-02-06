@@ -55,13 +55,14 @@ string solution(string polynomial) {
         a.push_back(temp);
     }
 
-    for (string b : a)
+    for (string x : a)
     {
-        if (b.find('x') != string::npos)
+        for (char y : x)
         {
-            for()
+
         }
     }
+
 
 
 

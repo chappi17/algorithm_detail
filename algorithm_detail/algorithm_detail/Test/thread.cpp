@@ -27,6 +27,7 @@ int main()
 
 	thread t1(makelog);
 	thread t2 (makelog);
+	// 람다 함수도 스레드 처리가 가능함
 	thread t3([]
 		{
 			cout << "log play?" << "\n";

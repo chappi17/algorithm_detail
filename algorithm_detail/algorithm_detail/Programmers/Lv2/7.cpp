@@ -17,17 +17,17 @@
 코니가 가진 의상들이 담긴 2차원 배열 clothes가 주어질 때 서로 다른 옷의 조합의 수를 return 하도록 solution 함수를 작성해주세요.
 
 
-꼬여있는듯... 
-clothes	return
-[["yellow_hat", "headgear"], ["blue_sunglasses", "eyewear"], ["green_turban", "headgear"]]	5
-[["crow_mask", "face"], ["blue_sunglasses", "face"], ["smoky_makeup", "face"]]	3
-
-
 헤드기어가 2종류, 안경이 1종류 각자 한개씩 체크 + 2개 조합 3 +2 =5
     - 옷의 종류별로 옷의 갯수를 셈
     - 옷의 종류에 대해 옷을 입는 경우의 수 곱하기
 
 얼굴이 3종류  각자 한개씩 체크 1 + 1 + 1 =3
+
+vector<vector<string>> 이니까 종류는 가짓수로 대체하고
+부위별로 몇개의 경우의 수가 생기는지 그것만 먼저 파악해보자\
+
+전체 조합의 수를 구하는 방법 -> 해당 가짓수 +1 * 모든 종류 if(아무것도 안고른다 라는 선택지 없으면) -1 ;
+
 */
 
 #include <string>
@@ -48,7 +48,7 @@ int solution(vector<vector<string>> clothes) {
 
     for(auto& a : hash)
     {
-        answer *= a.second + 1;
+        answer *= a.second+1;
     }     
 
     return answer-1;

@@ -1,12 +1,12 @@
 
 /*
-스트리밍 사이트에서 장르 별로 가장 많이 재생된 노래를 두 개씩 모아 베스트 앨범을 출시하려 합니다. 
+스트리밍 사이트에서 장르 별로 가장 많이 재생된 노래를 두 개씩 모아 베스트 앨범을 출시하려 합니다.
 노래는 고유 번호로 구분하며, 노래를 수록하는 기준은 다음과 같습니다.
 
 속한 노래가 많이 재생된 장르를 먼저 수록합니다.
 장르 내에서 많이 재생된 노래를 먼저 수록합니다.
 장르 내에서 재생 횟수가 같은 노래 중에서는 고유 번호가 낮은 노래를 먼저 수록합니다.
-노래의 장르를 나타내는 문자열 배열 genres와 노래별 재생 횟수를 나타내는 정수 배열 plays가 주어질 때, 
+노래의 장르를 나타내는 문자열 배열 genres와 노래별 재생 횟수를 나타내는 정수 배열 plays가 주어질 때,
 베스트 앨범에 들어갈 노래의 고유 번호를 순서대로 return 하도록 solution 함수를 완성하세요.
 
 제한사항
@@ -39,6 +39,16 @@ pop 장르는 3,100회 재생되었으며, pop 노래는 다음과 같습니다.
 클래식 내에서 재생 횟수 비교
 팝 내에서 재생 횟수 비교
 
+장르와 재생 횟수를 해시값으로 저장하기
+재생 횟수별로 랭크를 매겨야 하니, <string,vector<int>>로 저장 -> 고유번호는 어떻게 저장해야 할까
+
+-> <string,vector<pair<int,int>>> 로 저장해서, 고유번호 , 재생횟수 이런식으로 하면 될듯
+그리고 총 재생 횟수별로 정렬되는게 다르기 때문에
+
+총 재생 횟수를 담는 <string,int> 를 담는 또다른 unordered_map 추가
+
+각각 람다함수로 정렬-> 정렬된 순으로 answer에 대입
+
 */
 
 
@@ -49,35 +59,55 @@ pop 장르는 3,100회 재생되었으며, pop 노래는 다음과 같습니다.
 
 using namespace std;
 
-vector<int> solution(vector<string> genres, vector<int> plays) {
-    vector<int> answer;
+vector<int> solution(vector<string> genres, vector<int> plays)
+{
+	vector<int> answer;
+	// hash -> classic, pop -> <고유 번호, 재생횟수> 
+	unordered_map<string, vector<pair<int, int>>> hash;
+	unordered_map<string, int> genreplayCount;
 
-    unordered_map<string, vector<pair<int,int>>> hash;
+	for (int i = 0; i < genres.size(); i++)
+	{
+		string key = genres[i];
+		hash[key].emplace_back(i, plays[i]);
+		genreplayCount[key] += plays[i];
+	}
 
-    for (int i = 0; i < genres.size(); i++)
-    {
-        hash[genres[i]].push_back(make_pair(plays[i],i));
-    }
+	// 각각 정렬
 
-    for (auto& a : hash)
-    {
-        sort(a.second.begin(), a.second.end(), [](const pair<int, int>& a, const pair<int, int>& b)
-            {
-                // 재생 수가 같을때
-                if (a.first == b.first)
-                {
-                    // 고유 번호가 낮은거
-                    return a.second < b.second;
-                }
-                return a.first > b.first;
-            });
-    }
+	//장르별 총 재생 횟수 정렬
+	vector<pair<string, int>> sortedGenre(genreplayCount.begin(), genreplayCount.end());
+	sort(sortedGenre.begin(), sortedGenre.end(), [](const pair<string, int>& a, const pair<string, int>& b)
+		{
+			return a.second > b.second;
+		});
 
-     return answer;
+	// 장르별 재생횟수 정렬 
+
+	for (auto& it : sortedGenre)
+	{
+		auto& tracks = hash[it.first];
+		sort(tracks.begin(), tracks.end(), [](const pair<int, int>& a, const pair<int, int>& b)
+			{
+				return a.second > b.second;
+			});
+
+		// 이미 높은 장르 순으로 정렬되었기 때문에 순차적으로 answer에 대입
+		int count = 0;
+		for (auto& a : tracks)
+		{
+			if (count == 2) break;
+			answer.emplace_back(a.first);
+			count++;
+		}
+	}
+
+	return answer;
+
 }
 
 
 int main()
 {
-    solution({ "classic", "pop", "classic", "classic", "pop" }, {500, 600, 150, 800, 2500});
+	solution({ "classic", "pop", "classic", "classic", "pop" }, { 500, 600, 150, 800, 2500 });
 }

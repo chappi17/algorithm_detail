@@ -9,18 +9,14 @@ completion의 길이는 participant의 길이보다 1 작습니다.
 참가자의 이름은 1개 이상 20개 이하의 알파벳 소문자로 이루어져 있습니다.
 참가자 중에는 동명이인이 있을 수 있습니다.
 
-map 이용해서 키 와 값으로 검색 돌려서 찾으면 될듯
-완주하지 못한 선수의 이름이니까
-
 participant 에는 있지만 completion 에는 없는 사람 찾으면 될듯
 
-participant 돌면서 completion 있으면 삭제하고, 없으면 남겨놓고 return을 participant 하는게 좋을듯
+unordered_map으로 첫번째 인수는 string(이름으로 검색) 두번째 인수는 int 참가 = 1 완주 = 0
 
-map에 값을 다 0으로 저장해놓고,
-completion 에서 map find 해서 키 값이 있으면 계속 0 있으면 1 
+참가자는 hash에 추가, 
+완주자는 hash에서 마이너스, 해서 
 
-반환 할때, 값이 1인것만 찾아주면 되지 않을까나
-
+참가는 했지만 완주 못한, hash의 두번째 인수값이 1 인 사람만 정답이 되면 될듯.
 */
 
 #include <string>

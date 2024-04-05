@@ -15,8 +15,9 @@ numbers	return
 [6, 10, 2]	"6210"
 [3, 30, 34, 5, 9]	"9534330"
 
-필요한 함수 -> 일의자리, 십의자리 구분해서, 십의 자리는 뒤로
-같은 자리수면 큰 수가 앞에오기,
+각 수를 앞뒤로 조합해서 비교하는 함수를 만들어야 함.그 모든 조합에서 가장 큰 수 구하고, 그 순서대로 문자열 만들어서 return
+
+
 */
 
 #include <string>
@@ -25,34 +26,35 @@ numbers	return
 
 using namespace std;
 
-bool Compare(const int& a, const int& b)
-{
-	string A = to_string(a) + to_string(b);
-	string B = to_string(b) + to_string(a);
-
-	return A > B;
-
-}
 string solution(vector<int> numbers)
 {
 	string answer = "";
-	sort(numbers.begin(), numbers.end(), Compare);
+	vector<string> x;
 
-	if (numbers[0] == 0)
+	sort(numbers.begin(), numbers.end(), [](const int& a, const int& b)
+		{
+			string A = to_string(a) + to_string(b);
+			string B = to_string(b) + to_string(a);
+			return A > B;
+		});
+
+
+
+	for (int i = 0; i < numbers.size(); i++)
+	{
+		answer += to_string(numbers[i]);
+	}
+
+	if (answer[0] == '0')
 	{
 		return "0";
 	}
-
-	for (int a : numbers)
-	{
-		answer += to_string(a);
-	}
-
 	return answer;
+
 }
 
 int main()
 {
-	solution({ 3,30,34,5,9 });
+	solution({ 0,0,0});
 	return 0;
 }

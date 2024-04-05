@@ -16,6 +16,17 @@ citations	return
 [3, 0, 6, 1, 5]	3
 입출력 예 설명
 이 과학자가 발표한 논문의 수는 5편이고, 그중 3편의 논문은 3회 이상 인용되었습니다. 그리고 나머지 2편의 논문은 3회 이하 인용되었기 때문에 이 과학자의 H-Index는 3입니다.
+
+    citations의 인덱스를 1부터 시작했을때, 해당 데이터 값이 인덱스보다 높거나 같아야함
+    그래서 
+     6 , 5, 3, 1, 0 로 정렬해서
+
+     1   2   3  4 5  를 했을떄
+
+             여기까지 H_index 가 구해지는데, 3이 최대니까, 3임. 
+
+
+
 */
 
 #include <string>
@@ -26,17 +37,25 @@ using namespace std;
 
 int solution(vector<int> citations) {
     int answer = 0;
+    int n = citations.size();
+    int H_index = 0;
 
-    sort(citations.rbegin(), citations.rend());
+    sort(citations.begin(), citations.end(),greater<int>());
 
-    for (int i = 0; i < citations.size(); i++)
+    for (int i = 0; i < n; i++)
     {
-        if (citations[i] >= i+1)
+        if (i + 1 <= citations[i])
         {
-            answer = i+1;
+            H_index = i + 1;
         }
+        else
+        {
+            break;
+        }
+
     }
-    return answer;
+    return answer = H_index;
+
 }
 
 int main()

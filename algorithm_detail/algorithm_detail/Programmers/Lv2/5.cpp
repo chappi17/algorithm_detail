@@ -18,13 +18,16 @@ Leo가 본 카펫에서 갈색 격자의 수 brown, 노란색 격자의 수 yell
 
 가로 >= 세로
 
-노란색 = (가로 -2) * (세로 -2) 
+노란색 = (가로 -2) * (세로 -2)
 갈색 = 가로 * 세로 - 노란색
+
+최소 높이 3. 노랑 1일때 갈색은 8 즉 3 *3이 제일 최소
 
 1. 최소가 노란색 1개 일때 갈색 8개 3X3 그리드 구조.
 2. 높이가 3이라고 가정했을때, 나머지가 0인 인수는 3
 3. 그 몫이 너비 라고 한다면
-4. 너비가 높이보다 크거나 같고, 노란색이  (가로 -2) * (세로 -2) 인 경우 
+4. 너비가 높이보다 크거나 같고, 노란색이  (가로 -2) * (세로 -2) 인 경우
+	-> yellow 한개의 값과 두개의 값이 w,h에 어떤 영향을 끼치는지, 확인
 5. 너비와 높이가 답
 
 */
@@ -35,27 +38,32 @@ Leo가 본 카펫에서 갈색 격자의 수 brown, 노란색 격자의 수 yell
 using namespace std;
 
 vector<int> solution(int brown, int yellow) {
-    vector<int> answer;
+	vector<int> answer;
+	int width = 0;
+	int height = 0;
+	int maxindex = brown + yellow;
 
-    for (int height = 3; height <= brown + yellow / height; height++)
-    {
-        if ((brown + yellow) % height == 0)
-        {
-            int width = (brown + yellow) / height;
-            if (width >= height && yellow == ((width - 2) * (height - 2)))
-            {
-                answer.push_back(width);
-                answer.push_back(height);
-                break;
-            }
-        }
-    }
-    return answer;
+	//최소 높이 3부터 시작 -> w는 자연스럽게 3이 되어야함
+	for (height = 3; height <= maxindex / height; height++)
+	{
+		if (maxindex % height == 0)
+		{
+			width = maxindex / height;
+			if ((width - 2) * (height - 2) == yellow)
+			{
+				answer.emplace_back(width);
+				answer.emplace_back(height);
+				break;
+			}
+		}
+	}
+
+	return answer;
 }
 
 int main()
 {
-    solution(24,24);
+	solution(24,24);
 }
 
 

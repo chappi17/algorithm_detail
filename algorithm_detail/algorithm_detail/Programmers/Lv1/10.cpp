@@ -30,19 +30,19 @@ using namespace std;
 int solution(vector<vector<int>> sizes) {
     int answer = 0;
 
-    int maxWidth = 0;
-    int maxHeight = 0;
+    int maxWidth;
+    int maxHight;
 
-    for (vector<int> a : sizes)
+    for (vector<int> x : sizes)
     {
-        int width = a[0];
-        int height = a[1];
+        int width = x[0];
+        int height = x[1];
 
         maxWidth = max(maxWidth, max(width, height));
-        maxHeight = max(maxHeight, min(width, height));
+        maxHight = max(maxHight, min(width, height));
     }
 
-    answer = maxWidth * maxHeight;  
+    answer = maxWidth * maxHight;
 
     return answer;
 }

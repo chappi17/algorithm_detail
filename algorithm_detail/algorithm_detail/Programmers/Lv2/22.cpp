@@ -36,10 +36,6 @@ int solution(int n, vector<vector<int>> wires)
         x[a[1]].emplace_back(a[0]);
     }
 
-
-
-
-
     return answer;
 }
 

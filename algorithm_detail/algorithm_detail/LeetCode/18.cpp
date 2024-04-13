@@ -10,7 +10,7 @@ and the last n elements are set to 0 and should be ignored. nums2 has a length o
 
  최대한 안 건드리고 두 배열을 합치는 문제
 
- 빈 공간은 0으로 되어있고
+ 빈 공간은 0으로 되어있
 
  숫자 있는 만큼 m과 n 으로 크기 고정 되어 있음
 

@@ -9,34 +9,34 @@ public:
 	int maximumWealth(vector<vector<int>>& accounts) {
 		int max_wealth = 0;
 
-		//for (vector<int> x : accounts)
-		//{
-		//	int current = 0;
-		//	for (int account : x)
-		//	{
-		//		current += account;
-		//	}
-		//	max_wealth = max(max_wealth, current);
-		//}
-
-		//return max_wealth;
-
-
-		for (int i = 0; i < accounts.size(); i++)
+		for (vector<int> x : accounts)
 		{
 			int current = 0;
-			for (int j = 0; j < accounts[i].size(); j++)
+			for (int account : x)
 			{
-				current += accounts[i][j];
+				current += account;
 			}
-			if (max_wealth < current)
-			{
-				max_wealth = current;
-			}
-			
+			max_wealth = max(max_wealth, current);
 		}
 
 		return max_wealth;
+
+
+		//for (int i = 0; i < accounts.size(); i++)
+		//{
+		//	int current = 0;
+		//	for (int j = 0; j < accounts[i].size(); j++)
+		//	{
+		//		current += accounts[i][j];
+		//	}
+		//	if (max_wealth < current)
+		//	{
+		//		max_wealth = current;
+		//	}
+
+		//}
+
+		//return max_wealth;
 
 	}
 };

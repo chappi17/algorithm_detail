@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Test\MemoryPool.cpp">
+    <ClCompile Include="BackJun\Bronze\4.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

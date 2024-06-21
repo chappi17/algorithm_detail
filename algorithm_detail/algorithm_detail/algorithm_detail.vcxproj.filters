@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BackJun\Bronze\8.cpp">
+    <ClCompile Include="BackJun\Silver\4.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
